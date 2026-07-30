@@ -1,0 +1,80 @@
+CMA · NOVO SITE cma.agr.br · v4 (jul/2026)
+============================================================
+
+Site estático completo em PT (sem versão EN nesta fase), construído
+conforme o sitemap do documento CMA_Organizacao-Estrategica_v4 com os
+ajustes aprovados e o Manual da Marca v2.3.
+
+IMPORTANTE · Sem qualquer menção à exportação de gado vivo em todo o
+site (decisão de reunião). TRACES aparece apenas como habilitação de
+carne para a União Europeia (2006). O grupo é apresentado em 6
+engrenagens públicas (Confinamento, Feno, Nutri, Lab, Ciclo, Origem).
+
+COMO VISUALIZAR
+  Abra index.html em qualquer navegador (duplo clique).
+
+PÁGINAS (19)
+  index.html               Home: hero com transição de assuntos (4 slides)
+  historia.html            Nossa História: LINHA DO TEMPO INTERATIVA
+  ciclo.html               O Ciclo Monte Alegre (infográfico oficial)
+  certificacoes.html       Certificações & Prêmios
+  sustentabilidade.html    Sustentabilidade & Governança (E·S·G)
+  caminho-do-boi.html      Como Funciona: as 8 paradas
+  nutricao.html            Fábrica, Nutri & Lab
+  seja-parceiro.html       Modelos (4: @Padrão, @Produzida, Margem
+                           Garantida, CREDI CMA) + simulador + Origem
+  vantagens.html           Vantagens ao Parceiro + relatório exemplo
+  feno.html / adubo.html / suplemento.html / agricultura.html
+  midia.html / cotacoes.html (Scot: aguardando integração)
+  contato.html / trabalhe-conosco.html
+  area-do-parceiro.html    Login (estático, aguarda backend)
+  privacidade.html         LGPD
+
+NOVIDADES DA v4
+  · "Quem somos" enxuto: chamada curta para Nossa História, foto
+    limpa sem máscara e fundo sem pattern.
+  · Etapas do ciclo com ícones sólidos (linha pontilhada de fato
+    atrás) e hover no botão sobre fundo verde.
+  · Fotos novas: Nutri (interior da unidade), Ciclo (manejo do
+    orgânico com pá carregadeira), Origem (lote jovem de Nelore)
+    e fundo da citação (gado à sombra do ipê florido).
+  · Rodapé premium: frase da contracapa em destaque com fio
+    dourado, 4 colunas organizadas e crédito Imagenou.
+
+NOVIDADES DA v3
+  · Logo verde sem moldura no menu; item Confinamento reescrito
+    ("O Caminho do Boi"); ícone novo de Vantagens (moeda + folha,
+    criado na linguagem da biblioteca oficial: vantagem.svg).
+  · Hero corrigido (fundo sem vazar), textos menores, pattern Colinas.
+  · Números com ícones revisados (mapa da fazenda / boi Nelore).
+  · "Quem somos" ampliado com foto aérea e selo 90 anos.
+  · Ciclo Monte Alegre em disco premium com aro dourado e chips.
+  · Engrenagens com assinaturas sobre pill verde e títulos.
+  · Rodapé arejado: frase da contracapa junto à marca e crédito
+    "Desenvolvido por Imagenou" (imagenou.com.br). Para usar o SVG
+    oficial, salve-o em assets/brand/imagenou.svg (o build troca
+    automaticamente o texto pelo logo).
+
+NOVIDADES DA v2
+  · Menu em duas faixas (institucional + navegação) com mega-menu
+    de ícones e sublinhado dourado.
+  · Rodapé cerimonial com a frase da contracapa do Manual v2.3:
+    "Cuidado não se promete: se prova."
+  · Home: hero com transição de assuntos, números com ícones, Ciclo
+    redistribuído, engrenagens com foto e seção da previsibilidade.
+  · Revisão de pontuação: nenhum travessão substituindo pontuação.
+
+OBSERVAÇÕES TÉCNICAS
+  · Formulários sem backend: abrem WhatsApp (17 98114-0041) ou e-mail
+    com os campos preenchidos. Trocar por endpoint real no go-live.
+  · Fontes licenciadas embarcadas em assets/fonts (Adventor + Poppins).
+  · Ativos da marca em assets/brand e assets/icons (Brand Kit v2.3).
+  · Fotos: acervo do projeto (visita 21/07, Captação Aérea 2025,
+    Animais 2020, FENOS 18.04.22, App Andre e mídia do site atual).
+  · Linha do tempo: conteúdo em historia.html (window.TL_MARCOS),
+    fácil de editar sem tocar no JS.
+  · Pendências de conteúdo: validar ano Dinheiro Rural (2018) e teor
+    da matéria Globo Rural antes do go-live; fotos de compostagem
+    (pauta da captação master) para adubo.html/ciclo.html.
+
+Imagenou · material de trabalho — revisar antes de publicar.
