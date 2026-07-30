@@ -129,8 +129,23 @@
   var tabs = slider.querySelectorAll('.hs-tab');
   var atual = 0, timer = null, DUR = 7000;
 
+  /* carrega a foto de um slide so quando ela vai ser vista */
+  function carregar(i) {
+    var s = slides[i];
+    if (!s || s.dataset.pronto) return;
+    s.dataset.pronto = '1';
+    s.querySelectorAll('source[data-srcset]').forEach(function (o) {
+      o.srcset = o.dataset.srcset; o.removeAttribute('data-srcset');
+    });
+    s.querySelectorAll('img[data-src]').forEach(function (im) {
+      im.src = im.dataset.src; im.removeAttribute('data-src');
+    });
+  }
+
   function ir(i) {
     atual = (i + slides.length) % slides.length;
+    carregar(atual);
+    carregar((atual + 1) % slides.length);   /* deixa o proximo pronto */
     slides.forEach(function (s, j) { s.classList.toggle('ativo', j === atual); });
     tabs.forEach(function (t, j) {
       t.classList.toggle('ativo', j === atual);
@@ -139,6 +154,9 @@
     });
   }
   function agenda() { clearInterval(timer); timer = setInterval(function () { ir(atual + 1); }, DUR); }
+  if (slides.length > 1) {
+    window.addEventListener('load', function () { setTimeout(function () { carregar(1); }, 600); });
+  }
 
   tabs.forEach(function (t, i) { t.addEventListener('click', function () { ir(i); agenda(); }); });
   slider.querySelector('.hs-ant').addEventListener('click', function () { ir(atual - 1); agenda(); });
