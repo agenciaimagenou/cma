@@ -109,8 +109,12 @@ nav.principal>div:hover .submenu,nav.principal>div:focus-within .submenu{opacity
   .topfaixa{display:none}
   nav.principal{position:fixed;inset:84px 0 0 0;background:var(--areia);flex-direction:column;padding:24px;gap:2px;margin:0;overflow:auto;transform:translateX(100%);transition:transform .4s var(--ease)}
   nav.principal.aberto{transform:none}
-  .submenu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;background:transparent;display:none;padding:0 0 8px 12px}
+  .submenu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;background:transparent;display:none;padding:0 0 8px 12px;min-width:0}
   .submenu::before{display:none}
+  /* o :hover do desktop deslocava o submenu em -50% e cortava os itens */
+  nav.principal>div:hover .submenu,
+  nav.principal>div:focus-within .submenu,
+  nav.principal>div.aberto .submenu{transform:none;opacity:1;visibility:visible}
   nav.principal>div.aberto .submenu{display:block}
   .hamb{display:block;margin-left:auto}
   .topbar-in{gap:14px}
@@ -635,3 +639,62 @@ footer .pe-grid{grid-template-columns:1.55fr 1fr 1fr 1.25fr;gap:clamp(34px,4.6vw
 .mani-in blockquote em{font-style:italic;color:var(--trigo);white-space:nowrap}
 .mani-assin{margin-top:34px;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,239,230,.55)}
 @media(max-width:900px){.manifesto{padding:80px 0}.manifesto::after{transform:translateX(-46vw);font-size:11rem}}
+
+/* ============================================================
+   MOBILE · correções de layout e blindagem contra estouro
+   ============================================================ */
+
+/* causa raiz do estouro na home: .split .foto herda min-height 280px
+   e, com aspect-ratio 16/11, isso vira 407px de largura mínima. */
+.qs-compacto .foto-limpa,.split .foto-limpa{min-height:0}
+
+/* trilhos de grid nunca podem ser esticados pelo conteúdo */
+.split,.grid,.g2,.g3,.g4,.stats,.pe-grid,.parada,.tl-palco{min-width:0}
+.split>*,.grid>*,.stats>*,.pe-grid>*,.parada>*{min-width:0}
+
+/* mídia nunca ultrapassa o contêiner */
+img,svg,video{max-width:100%}
+
+@media(max-width:1080px){
+  /* rede de segurança: nada rola de lado no mobile */
+  html,body{overflow-x:clip}
+
+  /* abas do hero em uma linha só (deslizando), para os controles
+     não crescerem em altura e invadirem o texto da capa */
+  .hs-controles{gap:12px}
+  .hs-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+  .hs-tabs::-webkit-scrollbar{display:none}
+  .hs-tab{flex:0 0 auto;white-space:nowrap}
+  /* as setas ficavam embaixo do botão flutuante do WhatsApp;
+     no celular as próprias abas fazem a navegação da capa */
+  .hs-setas{display:none}
+  /* a faixa de abas termina antes da coluna do botão flutuante */
+  .hs-controles{padding-right:92px}
+}
+
+@media(max-width:560px){
+  /* palavras longas nunca furam a caixa */
+  h1,h2,h3,p,li,td,th,blockquote{overflow-wrap:break-word}
+  /* citação do manifesto: sem nowrap que force largura */
+  .mani-in blockquote em{white-space:normal}
+}
+
+/* altura de tela no celular: no iOS, 'vh' ignora a barra do navegador e
+   deixa as capas mais altas que a tela. 'svh' corrige; navegadores
+   antigos simplesmente ignoram a segunda linha. */
+.hero{min-height:86svh}
+.hero-slider,.hs-slide.ativo{min-height:92svh}
+.hero-interna{min-height:56svh}
+@media(max-width:760px){
+  .hero-slider,.hs-slide.ativo{min-height:88svh}
+  /* área de toque confortável nos itens do menu */
+  nav.principal .nav-link{padding:14px 15px}
+  .submenu a{padding:12px 13px}
+}
+
+@media(max-width:480px){
+  /* selo de certificação: em telas estreitas o ano vai para cima,
+     devolvendo a largura inteira ao texto */
+  .selo-cert{flex-direction:column;gap:12px}
+  .selo-cert .ano{width:60px;height:60px;font-size:.95rem}
+}
