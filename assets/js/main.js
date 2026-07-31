@@ -58,7 +58,16 @@
 
       fotoEl.classList.remove('anim'); infoEl.classList.remove('anim');
       void fotoEl.offsetWidth;
-      fotoEl.innerHTML = '<img src="' + m.foto + '" alt="' + m.titulo.replace(/"/g, '') + '">';
+      var alt = m.titulo.replace(/"/g, '');
+      var img = '<img src="' + m.foto + '" alt="' + alt + '" loading="lazy" decoding="async">';
+      if (m.webp && m.webp.length) {
+        var ss = m.webp.map(function (w) {
+          return 'assets/img/' + m.base + '-' + w + '.webp ' + w + 'w';
+        }).join(', ');
+        img = '<picture><source type="image/webp" srcset="' + ss +
+              '" sizes="(max-width:900px) 92vw, (max-width:1240px) 46vw, 600px">' + img + '</picture>';
+      }
+      fotoEl.innerHTML = img;
       infoEl.querySelector('.tl-marco').textContent = m.ano;
       infoEl.querySelector('h3').textContent = m.titulo;
       infoEl.querySelector('p').textContent = m.texto;
