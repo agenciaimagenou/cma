@@ -38,7 +38,26 @@
     var fotoEl = tl.querySelector('.tl-foto');
     var infoEl = tl.querySelector('.tl-info');
     var progEl = tl.querySelector('.tl-prog');
+    var pausaEl = tl.querySelector('.tl-pausa');
     var atual = 0, timer = null;
+    /* pausado = decisao do visitante; so ele volta a ligar */
+    var pausado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DUR_TL = 9000;
+
+    function parar() { clearInterval(timer); timer = null; }
+
+    function andar() {
+      parar();
+      if (!pausado) timer = setInterval(function () { ir(atual + 1); }, DUR_TL);
+    }
+
+    function marcarBotao() {
+      if (!pausaEl) return;
+      pausaEl.classList.toggle('tocando', !pausado);
+      pausaEl.setAttribute('aria-pressed', pausado ? 'true' : 'false');
+      pausaEl.setAttribute('aria-label',
+        pausado ? 'Retomar a passagem automática' : 'Pausar a passagem automática');
+    }
 
     marcos.forEach(function (m, i) {
       var b = document.createElement('button');
@@ -74,11 +93,18 @@
       fotoEl.classList.add('anim'); infoEl.classList.add('anim');
       if (progEl) progEl.textContent = (atual + 1) + ' / ' + marcos.length;
 
-      if (manual) { clearInterval(timer); timer = setInterval(function () { ir(atual + 1); }, 9000); }
+      if (manual) andar();
     }
 
     tl.querySelector('.tl-ant').addEventListener('click', function () { ir(atual - 1, true); });
     tl.querySelector('.tl-prox').addEventListener('click', function () { ir(atual + 1, true); });
+    if (pausaEl) {
+      pausaEl.addEventListener('click', function () {
+        pausado = !pausado;
+        marcarBotao();
+        andar();
+      });
+    }
     document.addEventListener('keydown', function (e) {
       if (!tl.getBoundingClientRect || tl.getBoundingClientRect().bottom < 0) return;
       if (e.key === 'ArrowRight') ir(atual + 1, true);
@@ -86,9 +112,13 @@
     });
 
     ir(0);
-    timer = setInterval(function () { ir(atual + 1); }, 9000);
-    tl.addEventListener('pointerenter', function () { clearInterval(timer); });
-    tl.addEventListener('pointerleave', function () { timer = setInterval(function () { ir(atual + 1); }, 9000); });
+    marcarBotao();
+    andar();
+    /* passar o mouse ou dar foco segura; sair volta, salvo se o visitante pausou */
+    tl.addEventListener('pointerenter', parar);
+    tl.addEventListener('pointerleave', andar);
+    tl.addEventListener('focusin', parar);
+    tl.addEventListener('focusout', andar);
   }
 
   /* ---------- contadores (números validados) ---------- */

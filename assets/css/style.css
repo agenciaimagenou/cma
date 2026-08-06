@@ -252,6 +252,12 @@ ul.marcada li::before{content:'';position:absolute;left:2px;top:.5em;width:11px;
 .tl-nav{display:flex;gap:12px;margin-top:30px;align-items:center}
 .tl-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(242,239,230,.4);background:none;color:var(--areia);cursor:pointer;font-size:1.1rem;transition:all .3s var(--ease);display:flex;align-items:center;justify-content:center}
 .tl-btn:hover{background:var(--dourado);border-color:var(--dourado);color:var(--mata)}
+/* pausa/retoma: dois tracos quando esta correndo, triangulo quando esta parado */
+.tl-pausa .tl-icone{display:block;width:14px;height:14px;position:relative}
+.tl-pausa .tl-icone::before,.tl-pausa .tl-icone::after{content:'';position:absolute;top:0;width:0;height:0;transition:all .25s var(--ease)}
+.tl-pausa .tl-icone::before{left:1px;border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent currentColor}
+.tl-pausa.tocando .tl-icone::before{left:1px;width:4px;height:14px;border:0;background:currentColor;border-radius:1px}
+.tl-pausa.tocando .tl-icone::after{right:1px;width:4px;height:14px;background:currentColor;border-radius:1px}
 .tl-prog{font-size:.8rem;letter-spacing:.18em;color:rgba(242,239,230,.6);margin-left:8px}
 .tl-palco .anim{animation:tlIn .7s var(--ease)}
 @keyframes tlIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
