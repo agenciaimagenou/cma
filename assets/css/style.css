@@ -454,7 +454,7 @@ a.midia-card:hover .ler-mais,a.midia-card:focus-visible .ler-mais{opacity:1;tran
 .prev-aspas{font-family:var(--disp);font-weight:700;font-size:6rem;line-height:.6;color:var(--dourado);display:block;margin-bottom:22px}
 .prev-quote{font-family:var(--disp);font-style:italic;font-weight:400;font-size:clamp(1.5rem,2.9vw,2.3rem);line-height:1.3;color:var(--leite)}
 .prev-quote strong{color:var(--trigo);font-weight:400}
-.prev-aspas-fim{font-family:var(--disp);font-style:normal;font-weight:700;font-size:1.6em;line-height:0;color:var(--dourado);vertical-align:-.32em;margin-left:.06em}
+.prev-aspas-ini,.prev-aspas-fim{font-family:var(--disp);font-style:normal;font-weight:700;font-size:1.6em;line-height:0;color:var(--dourado);vertical-align:-.32em}.prev-aspas-ini{margin-right:.08em}.prev-aspas-fim{margin-left:.06em}
 .prev-fonte{margin-top:24px;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dourado)}
 .prev-lista{display:flex;flex-direction:column;gap:0}
 .pilar{display:flex;gap:22px;padding:26px 0;border-top:1px solid rgba(242,239,230,.14);align-items:flex-start}
