@@ -69,11 +69,23 @@
     });
     var botoes = anosEl.querySelectorAll('.tl-ano');
 
+    /* a regua se preenche de dourado ate o ano ativo: mostra onde estamos
+       dentro dos 90 anos. E uma camada de fundo com background-attachment
+       local, entao rola junto com os anos. */
+    function preencher() {
+      var b0 = botoes[atual];
+      if (b0) {
+        anosEl.style.setProperty('--tl-preenchido',
+          Math.round(b0.offsetLeft + b0.offsetWidth / 2) + 'px');
+      }
+    }
+
     function ir(i, manual) {
       atual = (i + marcos.length) % marcos.length;
       var m = marcos[atual];
       botoes.forEach(function (b, j) { b.classList.toggle('ativo', j === atual); });
       botoes[atual].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      preencher();
 
       fotoEl.classList.remove('anim'); infoEl.classList.remove('anim');
       void fotoEl.offsetWidth;
@@ -111,9 +123,44 @@
       if (e.key === 'ArrowLeft') ir(atual - 1, true);
     });
 
+    /* arrastar a foto (dedo ou mouse) troca de marco, como no carrossel da capa */
+    var palco = tl.querySelector('.tl-palco');
+    if (palco) {
+      var x0 = null, y0 = null, arrastou = false;
+      /* sem isto o navegador inicia o arrasto nativo da imagem e cancela o gesto */
+      palco.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      palco.addEventListener('pointerdown', function (e) {
+        if (e.button && e.button !== 0) return;
+        x0 = e.clientX; y0 = e.clientY; arrastou = false;
+        if (palco.setPointerCapture) {
+          try { palco.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      });
+      palco.addEventListener('pointermove', function (e) {
+        if (x0 === null) return;
+        if (!arrastou && Math.abs(e.clientX - x0) > 12 &&
+            Math.abs(e.clientX - x0) > Math.abs(e.clientY - y0)) {
+          arrastou = true;
+          palco.classList.add('arrastando');
+        }
+      });
+      function soltar(e) {
+        if (x0 === null) return;
+        var dx = e.clientX - x0, dy = e.clientY - y0;
+        x0 = null; palco.classList.remove('arrastando');
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) ir(atual + (dx < 0 ? 1 : -1), true);
+      }
+      palco.addEventListener('pointerup', soltar);
+      palco.addEventListener('pointercancel', function () {
+        x0 = null; palco.classList.remove('arrastando');
+      });
+    }
+
     ir(0);
     marcarBotao();
     andar();
+    /* a regua muda de largura ao redimensionar; so o preenchimento e refeito */
+    window.addEventListener('resize', preencher);
     /* passar o mouse ou dar foco segura; sair volta, salvo se o visitante pausou */
     tl.addEventListener('pointerenter', parar);
     tl.addEventListener('pointerleave', andar);

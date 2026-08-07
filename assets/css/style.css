@@ -237,13 +237,16 @@ ul.marcada li::before{content:'';position:absolute;left:2px;top:.5em;width:11px;
 .tl-anos{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;padding:34px 0 10px;position:relative;-webkit-overflow-scrolling:touch}
 .tl-anos::-webkit-scrollbar{display:none}
 /* a linha corre por toda a faixa de anos, inclusive na parte que so aparece rolando */
-.tl-anos{background-image:linear-gradient(90deg,transparent,var(--oliva) 4%,var(--oliva) 96%,transparent);background-size:100% 2px;background-position:0 50px;background-repeat:no-repeat;background-attachment:local}
+.tl-anos{background-image:linear-gradient(90deg,var(--dourado),var(--dourado)),linear-gradient(90deg,transparent,var(--oliva) 4%,var(--oliva) 96%,transparent);background-size:var(--tl-preenchido,0) 2px,100% 2px;background-position:0 50px,0 50px;background-repeat:no-repeat,no-repeat;background-attachment:local,local;transition:background-size .55s var(--ease)}
 .tl-ano{flex:0 0 auto;background:none;border:none;cursor:pointer;padding:0 26px;text-align:center;position:relative;font-family:var(--disp);font-weight:700;color:rgba(242,239,230,.45);font-size:1.05rem;transition:color .35s var(--ease)}
 .tl-ano .ponto{display:block;width:12px;height:12px;margin:10px auto 0;background:var(--oliva);border-radius:50%;border:2px solid var(--mata);transition:all .35s var(--ease)}
 .tl-ano:hover{color:var(--trigo)}
 .tl-ano.ativo{color:var(--dourado);font-size:1.35rem}
 .tl-ano.ativo .ponto{background:var(--dourado);transform:scale(1.35);box-shadow:0 0 0 6px rgba(191,164,111,.22)}
 .tl-palco{display:grid;grid-template-columns:1.05fr 1fr;gap:54px;align-items:center;margin-top:44px;min-height:380px}
+.tl-palco{touch-action:pan-y;cursor:grab}
+.tl-palco.arrastando{cursor:grabbing}
+.tl-palco.arrastando .tl-foto,.tl-palco.arrastando .tl-info{transition:none}
 @media(max-width:900px){.tl-palco{grid-template-columns:1fr;gap:26px}}
 .tl-foto{border-radius:var(--r-folha);overflow:hidden;position:relative;min-height:300px;max-height:430px}
 .tl-foto img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
