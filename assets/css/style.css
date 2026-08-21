@@ -816,3 +816,8 @@ picture{display:contents}
 @keyframes cotBrilho{0%{background-position:120% 0}100%{background-position:-20% 0}}
 @media(prefers-reduced-motion:reduce){.cot-skel{animation:none}}
 @media(max-width:900px){.cot-card{padding:26px 22px}}
+
+.cot-widget{width:100%;border:0;display:block;background:transparent}
+.cot-widget-cepea{height:126px}
+.cot-tv{min-height:222px}
+.cot-tv .tradingview-widget-copyright{font-size:.7rem !important;line-height:1.4 !important;text-align:left !important;padding-top:4px}

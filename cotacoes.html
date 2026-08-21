@@ -51,7 +51,7 @@
   <div class="wrap">
     <div class="grid g2 cot-grade">
 
-      <div class="cartao cot-card reveal" data-cot-indicador aria-busy="true">
+      <div class="cartao cot-card reveal" data-cot-indicador>
         <div class="cot-cabeca">
           <div class="icone"><img src="assets/icons/boi_v2.svg" alt=""></div>
           <div>
@@ -59,11 +59,15 @@
             <span class="chip">Atualização diária</span>
           </div>
         </div>
-        <div class="cot-corpo" data-corpo aria-live="polite"></div>
-        <p class="cot-fonte">Fonte: <strong>CEPEA/ESALQ</strong> · indicador diário de referência, não é cotação em tempo real.</p>
+        <div class="cot-corpo" data-corpo aria-live="polite">
+          <iframe class="cot-widget cot-widget-cepea" src="assets/widgets/cepea-boi-gordo.html?v=20260821"
+                  title="Indicador do Boi Gordo CEPEA/ESALQ" loading="lazy" scrolling="no"></iframe>
+          <p class="cot-meta">Indicador diário do boi gordo em São Paulo, divulgado em todo dia útil pelo CEPEA/ESALQ. Não é cotação em tempo real.</p>
+        </div>
+        <p class="cot-fonte">Fonte: <strong>CEPEA/ESALQ</strong> · dados exibidos pelo widget oficial do Cepea, atualizado pela própria instituição.</p>
       </div>
 
-      <div class="cartao cot-card reveal d1" data-cot-futuros aria-busy="true">
+      <div class="cartao cot-card reveal d1" data-cot-futuros>
         <div class="cot-cabeca">
           <div class="icone"><img src="assets/icons/balanca_mostrador.svg" alt=""></div>
           <div>
@@ -71,8 +75,33 @@
             <span class="chip">Por vencimento</span>
           </div>
         </div>
-        <div class="cot-corpo" data-corpo aria-live="polite"></div>
-        <p class="cot-fonte">Fonte: <strong>B3</strong> · preços por vencimento, conforme o contrato de distribuição de dados.</p>
+        <div class="cot-corpo" data-corpo aria-live="polite">
+          <div class="tradingview-widget-container cot-tv">
+            <div class="tradingview-widget-container__widget"></div>
+            <div class="tradingview-widget-copyright"><a href="https://br.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Cotações por TradingView</span></a></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+            {
+              "width": "100%",
+              "height": 190,
+              "colorTheme": "light",
+              "isTransparent": true,
+              "showSymbolLogo": false,
+              "locale": "br",
+              "symbolsGroups": [
+                {
+                  "name": "Boi Gordo · B3",
+                  "symbols": [
+                    { "name": "BMFBOVESPA:BGI1!", "displayName": "Vencimento mais próximo" },
+                    { "name": "BMFBOVESPA:BGI2!", "displayName": "Vencimento seguinte" }
+                  ]
+                }
+              ]
+            }
+            </script>
+          </div>
+          <p class="cot-meta">Os dois vencimentos mais negociados do Boi Gordo, do mais próximo ao seguinte. A referência acompanha o rolo dos contratos: nenhum código fica fixo. Clique em uma linha para ver o mês de vencimento e o histórico.</p>
+        </div>
+        <p class="cot-fonte">Fonte: <strong>B3</strong>, via TradingView, distribuidor licenciado de market data · preços por vencimento, com atraso em relação ao pregão.</p>
       </div>
 
     </div>

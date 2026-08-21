@@ -51,11 +51,6 @@
     el.innerHTML = '<p class="cot-aviso' + (tom ? ' ' + tom : '') + '">' + esc(texto) + '</p>';
   }
 
-  function esqueleto(el, linhas) {
-    var s = '';
-    for (var i = 0; i < linhas; i++) s += '<span class="cot-skel"></span>';
-    el.innerHTML = '<div class="cot-skels" aria-hidden="true">' + s + '</div>';
-  }
 
   /* ---------- indicador CEPEA ---------- */
   function pintarIndicador(bloco) {
@@ -130,33 +125,25 @@
     corpo.innerHTML = html;
   }
 
-  /* ---------- carga ---------- */
-  if (alvoInd) esqueleto(alvoInd.querySelector('[data-corpo]'), 3);
-  if (alvoFut) esqueleto(alvoFut.querySelector('[data-corpo]'), 5);
-
-  function pintarTudo(bloco) {
-    if (alvoInd) pintarIndicador(bloco);
-    if (alvoFut) pintarFuturos(bloco);
-  }
-
-  // aberto direto do arquivo (file://): não existe servidor para responder
-  if (location.protocol === 'file:') {
-    pintarTudo({ estado: 'sem_credenciais' });
-    return;
-  }
+  /* ---------- carga ----------
+     Os cards já nascem com os widgets oficiais (CEPEA e TradingView/B3), que funcionam
+     sem contrato. Se um dia a CMA licenciar as APIs, a resposta de /api/cotacoes passa a
+     valer e substitui o widget pela nossa própria diagramação; enquanto isso, o widget fica. */
+  if (location.protocol === 'file:') return;
 
   fetch('/api/cotacoes', { headers: { 'Accept': 'application/json' } })
     .then(function (r) {
-      // 404 = endpoint ainda não publicado; tratamos como integração em andamento
-      if (r.status === 404) return { indicador: { estado: 'sem_credenciais' }, futuros: { estado: 'sem_credenciais' } };
-      if (!r.ok) throw new Error('http ' + r.status);
+      if (!r.ok) return null;
       return r.json();
     })
     .then(function (j) {
-      if (alvoInd) pintarIndicador(j.indicador || { estado: 'indisponivel' });
-      if (alvoFut) pintarFuturos(j.futuros || { estado: 'indisponivel' });
+      if (!j) return;
+      if (alvoInd && j.indicador && (j.indicador.estado === 'ok' || j.indicador.estado === 'ultimo_valido')) {
+        pintarIndicador(j.indicador);
+      }
+      if (alvoFut && j.futuros && (j.futuros.estado === 'ok' || j.futuros.estado === 'ultimo_valido')) {
+        pintarFuturos(j.futuros);
+      }
     })
-    .catch(function () {
-      pintarTudo({ estado: 'indisponivel' });
-    });
+    .catch(function () { /* widget oficial permanece na tela */ });
 })();
