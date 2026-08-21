@@ -259,3 +259,120 @@
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) agenda();
 })();
+
+
+/* ---------- galeria de depoimentos ---------- */
+(function () {
+  var g = document.querySelector('[data-depoimentos]');
+  if (!g) return;
+
+  var quadro = g.querySelector('.dep-quadro');
+  var minis = Array.prototype.slice.call(g.querySelectorAll('.dep-mini'));
+  var nomeEl = g.querySelector('.dep-nome');
+  var fraseEl = g.querySelector('.dep-frase');
+  var contaEl = g.querySelector('.dep-conta');
+  var atual = -1;
+  if (!quadro || !minis.length) return;
+
+  var ICONE_PLAY = '<span class="dep-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8v14.4L20 12z"/></svg></span>';
+
+  function dados(i) {
+    var b = minis[i];
+    return {
+      tipo: b.getAttribute('data-tipo'),
+      src: b.getAttribute('data-src'),
+      capa: b.getAttribute('data-capa'),
+      nome: b.getAttribute('data-nome') || '',
+      frase: b.getAttribute('data-frase') || ''
+    };
+  }
+
+  function mostrar(i, tocar) {
+    if (i < 0) i = minis.length - 1;
+    if (i >= minis.length) i = 0;
+    var d = dados(i);
+    atual = i;
+
+    quadro.innerHTML = '';
+    if (tocar) {
+      if (d.tipo === 'youtube') {
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + d.src + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        f.title = 'Depoimento de ' + d.nome;
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        f.setAttribute('allowfullscreen', '');
+        f.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        quadro.appendChild(f);
+      } else {
+        var v = document.createElement('video');
+        v.src = d.src;
+        v.poster = d.capa;
+        v.controls = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.preload = 'metadata';
+        quadro.appendChild(v);
+      }
+    } else {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'dep-capa';
+      btn.setAttribute('aria-label', 'Assistir ao depoimento de ' + d.nome);
+      var im = document.createElement('img');
+      im.src = d.capa;
+      im.alt = '';
+      im.loading = 'lazy';
+      im.decoding = 'async';
+      im.setAttribute('referrerpolicy', 'no-referrer');
+      if (d.tipo === 'youtube') {
+        im.onerror = function () {
+          this.onerror = null;
+          this.src = 'https://i.ytimg.com/vi/' + d.src + '/hqdefault.jpg';
+        };
+      }
+      btn.appendChild(im);
+      btn.insertAdjacentHTML('beforeend', ICONE_PLAY);
+      btn.addEventListener('click', function () { mostrar(atual, true); });
+      quadro.appendChild(btn);
+    }
+
+    var linkEl = g.querySelector('.dep-link');
+    if (linkEl) {
+      if (d.tipo === 'youtube') {
+        linkEl.href = 'https://www.youtube.com/watch?v=' + d.src;
+        linkEl.style.display = '';
+      } else {
+        linkEl.style.display = 'none';
+      }
+    }
+    if (nomeEl) nomeEl.textContent = d.nome;
+    if (fraseEl) {
+      fraseEl.textContent = d.frase ? '\u201C' + d.frase + '\u201D' : '';
+      fraseEl.style.display = d.frase ? '' : 'none';
+    }
+    if (contaEl) contaEl.textContent = ('0' + (i + 1)).slice(-2) + ' / ' + ('0' + minis.length).slice(-2);
+
+    minis.forEach(function (b, j) {
+      if (j === i) { b.setAttribute('aria-current', 'true'); }
+      else { b.removeAttribute('aria-current'); }
+    });
+    var alvo = minis[i];
+    if (alvo && alvo.scrollIntoView) alvo.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+  }
+
+  minis.forEach(function (b, i) {
+    b.addEventListener('click', function () { mostrar(i, true); });
+  });
+  g.querySelectorAll('.dep-nav.ant').forEach(function (b) {
+    b.addEventListener('click', function () { mostrar(atual - 1, false); });
+  });
+  g.querySelectorAll('.dep-nav.prox').forEach(function (b) {
+    b.addEventListener('click', function () { mostrar(atual + 1, false); });
+  });
+  g.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { mostrar(atual - 1, false); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { mostrar(atual + 1, false); e.preventDefault(); }
+  });
+
+  mostrar(0, false);
+})();
