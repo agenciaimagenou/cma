@@ -780,3 +780,39 @@ picture{display:contents}
   .dep-nav{width:32px;height:32px}
   .dep-play{width:52px;height:52px}
 }
+
+
+/* ---------- cotações ---------- */
+.visual-oculto{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.cot-grade{align-items:stretch}
+.cot-card{display:flex;flex-direction:column;padding:30px 28px}
+.cot-cabeca{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.cot-cabeca h3{margin:0;font-size:1.08rem;line-height:1.25}
+.cot-cabeca .icone{flex:0 0 46px;margin:0}
+.cot-cabeca .chip{margin:8px 0 0}
+.cot-corpo{flex:1}
+.cot-valor{font-family:var(--disp);font-weight:700;font-size:clamp(1.9rem,3.6vw,2.6rem);color:var(--verde);line-height:1.05;letter-spacing:-.02em}
+.cot-vars{display:flex;gap:26px;margin:16px 0 4px}
+.cot-vars dt{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--oliva);margin-bottom:3px}
+.cot-vars dd{margin:0;font-size:1.02rem;font-weight:500}
+.cot-var.sobe{color:#3d6b52}
+.cot-var.desce{color:var(--terracota)}
+.cot-var.neutra{color:var(--oliva)}
+.cot-meta{font-size:.82rem;color:var(--oliva);margin-top:10px}
+.cot-fonte{font-size:.76rem;color:var(--oliva);margin-top:18px;padding-top:14px;border-top:1px solid var(--linha)}
+.cot-aviso{font-size:.88rem;color:var(--oliva);background:rgba(115,115,74,.07);border-left:3px solid var(--dourado);border-radius:0 var(--r-pasto) var(--r-pasto) 0;padding:12px 16px;margin-top:6px}
+.cot-aviso.atencao{border-left-color:var(--terracota);color:#8a4b2a;background:rgba(166,90,46,.07)}
+.cot-rolagem{overflow-x:auto;margin:0 -4px}
+.cot-tabela{width:100%;border-collapse:collapse;font-size:.9rem;min-width:420px}
+.cot-tabela th[scope="col"]{font-family:var(--texto);font-weight:500;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--oliva);text-align:left;padding:0 10px 8px 4px;border-bottom:1px solid var(--linha);white-space:nowrap}
+.cot-tabela td,.cot-tabela th[scope="row"]{padding:11px 10px 11px 4px;border-bottom:1px solid rgba(115,115,74,.16);text-align:left;font-weight:300;color:var(--ink-72)}
+.cot-tabela th[scope="row"]{font-family:var(--disp);font-weight:700;color:var(--verde);white-space:nowrap}
+.cot-tabela td.num{white-space:nowrap}
+.cot-tipo{display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--oliva);margin-top:2px}
+.cot-tabela tr:last-child td,.cot-tabela tr:last-child th{border-bottom:0}
+.cot-skels{display:flex;flex-direction:column;gap:10px}
+.cot-skel{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,rgba(115,115,74,.10),rgba(115,115,74,.18),rgba(115,115,74,.10));background-size:200% 100%;animation:cotBrilho 1.4s var(--ease) infinite}
+.cot-skel:first-child{height:34px;width:62%}
+@keyframes cotBrilho{0%{background-position:120% 0}100%{background-position:-20% 0}}
+@media(prefers-reduced-motion:reduce){.cot-skel{animation:none}}
+@media(max-width:900px){.cot-card{padding:26px 22px}}
