@@ -62,7 +62,8 @@
         <div class="cot-corpo" data-corpo aria-live="polite">
           <iframe class="cot-widget cot-widget-cepea" src="assets/widgets/cepea-boi-gordo.html?v=20260821"
                   title="Indicador do Boi Gordo CEPEA/ESALQ" loading="lazy" scrolling="no"></iframe>
-          <p class="cot-meta">Indicador diário do boi gordo em São Paulo, divulgado em todo dia útil pelo CEPEA/ESALQ. Não é cotação em tempo real.</p>
+          <p class="cot-meta">Indicador diário do boi gordo em São Paulo, divulgado em todo dia útil pelo CEPEA/ESALQ. É a referência usada nos contratos de parceria da CMA, e não uma cotação em tempo real.</p>
+          <p class="cot-credito"><a href="https://www.cepea.org.br/br/indicador/boi-gordo.aspx" rel="noopener" target="_blank">Série histórica e metodologia no site do Cepea</a></p>
         </div>
         <p class="cot-fonte">Fonte: <strong>CEPEA/ESALQ</strong> · dados exibidos pelo widget oficial do Cepea, atualizado pela própria instituição.</p>
       </div>
@@ -76,32 +77,30 @@
           </div>
         </div>
         <div class="cot-corpo" data-corpo aria-live="polite">
-          <div class="tradingview-widget-container cot-tv">
-            <div class="tradingview-widget-container__widget"></div>
-            <div class="tradingview-widget-copyright"><a href="https://br.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Cotações por TradingView</span></a></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-            {
-              "width": "100%",
-              "height": 190,
-              "colorTheme": "light",
-              "isTransparent": true,
-              "showSymbolLogo": false,
-              "locale": "br",
-              "symbolsGroups": [
-                {
-                  "name": "Boi Gordo · B3",
-                  "symbols": [
-                    { "name": "BMFBOVESPA:BGI1!", "displayName": "Vencimento mais próximo" },
-                    { "name": "BMFBOVESPA:BGI2!", "displayName": "Vencimento seguinte" }
-                  ]
-                }
-              ]
-            }
-            </script>
+          <div class="cot-fut">
+            <div class="cot-fut-item">
+              <span class="cot-fut-rot">Vencimento mais próximo</span>
+              <div class="tradingview-widget-container" data-tv-bgi1>
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                { "symbol": "BMFBOVESPA:BGI1!", "width": "100%", "isTransparent": true, "colorTheme": "light", "locale": "br" }
+                </script>
+              </div>
+            </div>
+            <div class="cot-fut-item">
+              <span class="cot-fut-rot">Vencimento seguinte</span>
+              <div class="tradingview-widget-container" data-tv-bgi2>
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                { "symbol": "BMFBOVESPA:BGI2!", "width": "100%", "isTransparent": true, "colorTheme": "light", "locale": "br" }
+                </script>
+              </div>
+            </div>
           </div>
-          <p class="cot-meta">Os dois vencimentos mais negociados do Boi Gordo, do mais próximo ao seguinte. A referência acompanha o rolo dos contratos: nenhum código fica fixo. Clique em uma linha para ver o mês de vencimento e o histórico.</p>
+          <p class="cot-meta">Os dois vencimentos mais negociados do Boi Gordo. A referência acompanha o rolo dos contratos: nenhum código fica fixo. Clique em uma cotação para ver o mês de vencimento e o histórico.</p>
+          <p class="cot-credito"><a href="https://br.tradingview.com/" rel="noopener nofollow" target="_blank">Cotações por TradingView</a> · dados da B3, com atraso em relação ao pregão</p>
         </div>
-        <p class="cot-fonte">Fonte: <strong>B3</strong>, via TradingView, distribuidor licenciado de market data · preços por vencimento, com atraso em relação ao pregão.</p>
+        <p class="cot-fonte">Fonte: <strong>B3</strong> · cotações distribuídas pela TradingView, distribuidora licenciada de market data.</p>
       </div>
 
     </div>

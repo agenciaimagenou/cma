@@ -818,6 +818,11 @@ picture{display:contents}
 @media(max-width:900px){.cot-card{padding:26px 22px}}
 
 .cot-widget{width:100%;border:0;display:block;background:transparent}
-.cot-widget-cepea{height:126px}
-.cot-tv{min-height:222px}
-.cot-tv .tradingview-widget-copyright{font-size:.7rem !important;line-height:1.4 !important;text-align:left !important;padding-top:4px}
+.cot-widget-cepea{height:170px;transition:height .3s var(--ease)}
+.cot-fut{display:flex;flex-direction:column;gap:16px}
+.cot-fut-item .tradingview-widget-container{margin-left:-6px}
+.cot-fut-rot{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--oliva);margin-bottom:2px}
+.cot-credito{font-size:.72rem;color:var(--oliva);margin-top:12px}
+.cot-credito a{color:var(--oliva);border-bottom:1px solid rgba(115,115,74,.35)}
+.cot-credito a:hover{color:var(--verde);border-color:var(--verde)}
+.cot-card .tradingview-widget-copyright{display:none !important}

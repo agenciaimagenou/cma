@@ -6,17 +6,51 @@
 <title>Indicador do Boi Gordo CEPEA/ESALQ</title>
 <!--
   Widget oficial do CEPEA ("Cotações do Cepea no seu site" — cepea.org.br/br/widget.aspx).
-  O dado é servido e atualizado pelo próprio CEPEA, com a atribuição exigida pela licença.
-  Não há cópia, cache ou reprocessamento do indicador do lado da CMA.
+  O dado é servido e atualizado pelo próprio CEPEA; a CMA não copia, guarda nem reprocessa
+  o indicador. O crédito "Fonte: Cepea", com o link para o instituto, é mantido.
+  O CSS abaixo apenas apresenta a mesma tabela com a tipografia e as cores da marca.
 -->
 <style>
-  html,body{margin:0;padding:0;background:transparent;font-family:'Poppins',Arial,Helvetica,sans-serif}
-  .imagenet-widget-tabela{width:100% !important;border-collapse:collapse}
-  .imagenet-widget-tabela thead tr:first-child td:first-child img{max-height:26px;width:auto}
-  .imagenet-widget-tabela span.maior{font-weight:600}
+  @font-face{font-family:'Adventor';src:url('../fonts/TeXGyreAdventor-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+  @font-face{font-family:'Poppins';src:url('../fonts/Poppins-Light.woff2') format('woff2');font-weight:300;font-display:swap}
+  html,body{margin:0;padding:0;background:transparent;font-family:'Poppins',Arial,Helvetica,sans-serif;color:#3D372E}
+
+  table.imagenet-widget-tabela{width:100%!important;display:flex;flex-direction:column;border-collapse:collapse;
+    background:none!important;font-family:'Poppins',sans-serif!important;font-size:1rem!important}
+  table.imagenet-widget-tabela thead{display:none!important}
+  table.imagenet-widget-tabela tbody{display:block;order:1}
+  table.imagenet-widget-tabela tfoot{display:block;order:2;margin-top:16px;border-top:1px solid rgba(115,115,74,.25)}
+
+  table.imagenet-widget-tabela tbody tr{display:flex;flex-direction:column;background:none!important}
+  table.imagenet-widget-tabela tbody td{display:block;padding:0!important;text-align:left!important;
+    background:none!important;color:#3D372E!important;border:0!important}
+  table.imagenet-widget-tabela tbody td:nth-child(3){order:1;font-family:'Adventor',sans-serif;font-weight:700;
+    font-size:2.5rem;line-height:1.02;letter-spacing:-.02em;color:#335948!important}
+  table.imagenet-widget-tabela tbody td:nth-child(2){order:2;font-size:.82rem;color:#73734A!important;margin-top:8px}
+  table.imagenet-widget-tabela tbody td:nth-child(2) br{display:none}
+  table.imagenet-widget-tabela tbody td:nth-child(2) span.unidade{font-style:normal;font-weight:400}
+  table.imagenet-widget-tabela tbody td:nth-child(2) span.unidade::before{content:' · '}
+  table.imagenet-widget-tabela tbody td:nth-child(1){order:3;font-size:.78rem;color:#73734A!important;margin-top:3px}
+  table.imagenet-widget-tabela tbody td:nth-child(1)::before{content:'Referência: '}
+
+  table.imagenet-widget-tabela tfoot tr{display:flex;align-items:center;justify-content:space-between;background:none!important}
+  table.imagenet-widget-tabela tfoot td{background:none!important;color:#73734A!important;font-size:.7rem!important;
+    padding:9px 0 0!important;text-align:left!important;border:0!important}
+  table.imagenet-widget-tabela tfoot td img{max-height:18px;width:auto;opacity:.75}
 </style>
 </head>
 <body>
-<script src="https://www.cepea.org.br/br/widgetproduto.js.php?fonte=Poppins&tamanho=11&largura=100%25&corfundo=335948&cortexto=171512&corlinha=EDE7D8&id_indicador%5B%5D=2"></script>
+<script src="https://www.cepea.org.br/br/widgetproduto.js.php?fonte=Poppins&tamanho=11&largura=100%25&corfundo=FFFFFF&cortexto=3D372E&corlinha=FFFFFF&id_indicador%5B%5D=2"></script>
+<script>
+  /* informa a altura real ao card, para não sobrar espaço vazio */
+  (function () {
+    function avisar() {
+      var h = document.documentElement.scrollHeight;
+      try { parent.postMessage({ cma: 'altura-cepea', altura: h }, location.origin); } catch (e) {}
+    }
+    window.addEventListener('load', avisar);
+    setTimeout(avisar, 400);
+  })();
+</script>
 </body>
 </html>

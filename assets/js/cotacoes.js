@@ -129,6 +129,13 @@
      Os cards já nascem com os widgets oficiais (CEPEA e TradingView/B3), que funcionam
      sem contrato. Se um dia a CMA licenciar as APIs, a resposta de /api/cotacoes passa a
      valer e substitui o widget pela nossa própria diagramação; enquanto isso, o widget fica. */
+  /* o widget do CEPEA avisa a altura real: o card não fica com espaço sobrando */
+  window.addEventListener('message', function (ev) {
+    if (ev.origin !== location.origin || !ev.data || ev.data.cma !== 'altura-cepea') return;
+    var f = document.querySelector('.cot-widget-cepea');
+    if (f && ev.data.altura > 60) f.style.height = (ev.data.altura + 4) + 'px';
+  });
+
   if (location.protocol === 'file:') return;
 
   fetch('/api/cotacoes', { headers: { 'Accept': 'application/json' } })
