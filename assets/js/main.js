@@ -198,9 +198,11 @@
       });
       var corpo = linhas.join('\n');
       if (f.dataset.destino === 'whatsapp') {
-        window.open('https://wa.me/5517981140041?text=' + encodeURIComponent(f.dataset.assunto + '\n' + corpo), '_blank', 'noopener');
+        var zap = f.dataset.zap || '5517981150091';
+        window.open('https://wa.me/' + zap + '?text=' + encodeURIComponent(f.dataset.assunto + '\n' + corpo), '_blank', 'noopener');
       } else {
-        window.location.href = 'mailto:contato@cma.agr.br?subject=' + encodeURIComponent(f.dataset.assunto) + '&body=' + encodeURIComponent(corpo);
+        var caixa = f.dataset.email || 'contato@cma.agr.br';
+        window.location.href = 'mailto:' + caixa + '?subject=' + encodeURIComponent(f.dataset.assunto) + '&body=' + encodeURIComponent(corpo);
       }
     });
   });
