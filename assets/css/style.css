@@ -39,7 +39,7 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:124px}
 body{font-family:var(--texto);font-weight:300;color:var(--ink-72);background:var(--areia);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 a{color:var(--verde);text-decoration:none}
@@ -826,3 +826,7 @@ picture{display:contents}
 .cot-credito a{color:var(--oliva);border-bottom:1px solid rgba(115,115,74,.35)}
 .cot-credito a:hover{color:var(--verde);border-color:var(--verde)}
 .cot-card .tradingview-widget-copyright{display:none !important}
+
+/* âncoras não param atrás do cabeçalho fixo */
+[id]{scroll-margin-top:124px}
+@media(max-width:900px){html{scroll-padding-top:96px}[id]{scroll-margin-top:96px}}

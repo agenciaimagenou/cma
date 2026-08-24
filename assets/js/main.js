@@ -198,7 +198,7 @@
       });
       var corpo = linhas.join('\n');
       if (f.dataset.destino === 'whatsapp') {
-        window.open('https://wa.me/5517981140041?text=' + encodeURIComponent(f.dataset.assunto + '\n' + corpo));
+        window.open('https://wa.me/5517981140041?text=' + encodeURIComponent(f.dataset.assunto + '\n' + corpo), '_blank', 'noopener');
       } else {
         window.location.href = 'mailto:contato@cma.agr.br?subject=' + encodeURIComponent(f.dataset.assunto) + '&body=' + encodeURIComponent(corpo);
       }
