@@ -376,3 +376,15 @@
 
   mostrar(0, false);
 })();
+
+/* ---------- âncora vinda de outra página ----------
+   Ao chegar em uma URL com #, o navegador rola antes de fontes e imagens assentarem
+   e a página costuma parar antes do alvo. Aqui reposiciona a âncora ao terminar a carga. */
+(function () {
+  if (!location.hash || location.hash.length < 2) return;
+  var alvo;
+  try { alvo = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) { return; }
+  if (!alvo) return;
+  function ir() { alvo.scrollIntoView({ block: 'start' }); }
+  window.addEventListener('load', function () { setTimeout(ir, 80); setTimeout(ir, 400); });
+})();
