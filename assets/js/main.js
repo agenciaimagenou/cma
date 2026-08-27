@@ -8,10 +8,43 @@
   var hamb = document.querySelector('.hamb');
   var nav = document.querySelector('nav.principal');
   if (hamb && nav) {
+    var yGuardado = 0;
+
+    function abrirMenu() {
+      yGuardado = window.scrollY || document.documentElement.scrollTop || 0;
+      nav.classList.add('aberto');
+      document.body.classList.add('menu-aberto');
+      document.body.style.top = (-yGuardado) + 'px';
+      hamb.setAttribute('aria-expanded', 'true');
+    }
+
+    function fecharMenu() {
+      if (!nav.classList.contains('aberto')) return;
+      nav.classList.remove('aberto');
+      document.body.classList.remove('menu-aberto');
+      document.body.style.top = '';
+      window.scrollTo(0, yGuardado);
+      hamb.setAttribute('aria-expanded', 'false');
+    }
+
+    hamb.setAttribute('aria-expanded', 'false');
     hamb.addEventListener('click', function () {
-      nav.classList.toggle('aberto');
-      document.body.style.overflow = nav.classList.contains('aberto') ? 'hidden' : '';
+      if (nav.classList.contains('aberto')) fecharMenu(); else abrirMenu();
     });
+
+    /* X discreto para fechar, criado aqui para valer em todas as páginas */
+    var fechar = document.createElement('button');
+    fechar.type = 'button';
+    fechar.className = 'nav-fechar';
+    fechar.setAttribute('aria-label', 'Fechar menu');
+    fechar.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+    fechar.addEventListener('click', fecharMenu);
+    nav.appendChild(fechar);
+
+    /* fecha ao escolher um destino, com Esc ou ao voltar para o desktop */
+    nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', fecharMenu); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fecharMenu(); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1080) fecharMenu(); });
     nav.querySelectorAll(':scope > div > .nav-link').forEach(function (l) {
       l.addEventListener('click', function (e) {
         if (window.innerWidth <= 1080 && l.parentElement.querySelector('.submenu')) {
@@ -389,4 +422,22 @@
   if (!alvo) return;
   function ir() { alvo.scrollIntoView({ block: 'start' }); }
   window.addEventListener('load', function () { setTimeout(ir, 80); setTimeout(ir, 400); });
+})();
+
+/* ---------- mural de vagas: botão leva ao formulário com a vaga escolhida ---------- */
+(function () {
+  var alvo = document.querySelector('[data-vaga-alvo]');
+  var botoes = document.querySelectorAll('[data-vaga]');
+  if (!alvo || !botoes.length) return;
+  botoes.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var vaga = b.getAttribute('data-vaga');
+      for (var i = 0; i < alvo.options.length; i++) {
+        if (alvo.options[i].text === vaga) { alvo.selectedIndex = i; break; }
+      }
+      var bloco = document.getElementById('candidatura');
+      if (bloco) bloco.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      setTimeout(function () { alvo.focus({ preventScroll: true }); }, 500);
+    });
+  });
 })();
