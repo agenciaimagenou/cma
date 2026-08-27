@@ -854,3 +854,7 @@ body.menu-aberto{position:fixed;left:0;right:0;width:100%;overflow:hidden}
   .nav-fechar:hover,.nav-fechar:focus-visible{background:var(--verde);color:var(--areia);border-color:transparent}
   .nav-fechar svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
 }
+
+/* destaque em texto sobre foto ou fundo escuro: o ink não tem contraste */
+.hero .lead strong,.hero-interna .lead strong,.hs-conteudo .lead strong,.prev-secao strong,
+.s-verde strong,.s-mata strong,.s-verde .lead strong,.s-mata .lead strong{color:var(--leite)}
