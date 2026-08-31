@@ -113,11 +113,22 @@
       }
     }
 
+    /* centraliza o ano no trilho sem tocar na rolagem da página:
+       scrollIntoView mexia na âncora e puxava a leitura para cima */
+    function centralizarAno() {
+      var b = botoes[atual];
+      if (!b || !anosEl) return;
+      var destino = b.offsetLeft - (anosEl.clientWidth - b.offsetWidth) / 2;
+      destino = Math.max(0, Math.min(destino, anosEl.scrollWidth - anosEl.clientWidth));
+      if (typeof anosEl.scrollTo === 'function') anosEl.scrollTo({ left: destino, behavior: 'smooth' });
+      else anosEl.scrollLeft = destino;
+    }
+
     function ir(i, manual) {
       atual = (i + marcos.length) % marcos.length;
       var m = marcos[atual];
       botoes.forEach(function (b, j) { b.classList.toggle('ativo', j === atual); });
-      botoes[atual].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      centralizarAno();
       preencher();
 
       fotoEl.classList.remove('anim'); infoEl.classList.remove('anim');
