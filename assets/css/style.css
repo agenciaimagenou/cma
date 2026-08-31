@@ -864,9 +864,10 @@ body.menu-aberto{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 
 /* ---------- cultura ---------- */
 .cultura-pmv .cartao h3{font-size:1.15rem;margin:12px 0 10px;color:var(--verde)}
-.manifesto-cma .wrap>div{max-width:920px}
+.manifesto-cma{padding:84px 0}
+.manifesto-cma .wrap>div{max-width:1040px}
+.manifesto-cma .eyebrow{margin-bottom:26px}
 .manifesto-cma .mani-abertura{font-family:var(--disp);font-weight:700;color:var(--leite);
-  font-size:clamp(1.5rem,3.2vw,2.35rem);line-height:1.34;letter-spacing:-.01em;margin-top:6px}
+  font-size:clamp(1.75rem,3.9vw,2.9rem);line-height:1.26;letter-spacing:-.015em;margin-top:4px;text-wrap:balance}
 .manifesto-cma .mani-abertura em{font-style:italic;color:var(--dourado)}
-.manifesto-cma .mani-corpo{color:rgba(242,239,230,.84);font-size:clamp(1rem,1.4vw,1.14rem);
-  line-height:1.7;max-width:64ch;margin-top:24px}
+@media(max-width:760px){.manifesto-cma{padding:72px 0}}
